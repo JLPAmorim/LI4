@@ -2,23 +2,70 @@ var createError = require('http-errors');
 var express = require('express');
 var logger = require('morgan');
 var cors = require('cors')
+const mysql = require("mysql");
+const app = express();
+const bodyParser = require('body-parser')
 
 var indexRouter = require('./routes/index');
 
-var mongoose = require('mongoose');
-
-mongoose.connect('mongodb+srv://Admin:123@rasbet.bivs6.mongodb.net/RASBet?retryWrites=true&w=majority', 
-      { useNewUrlParser: true,
-        useUnifiedTopology: true,
-        serverSelectionTimeoutMS: 5000});
-  
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'Erro de conexão ao MongoDB...'));
-db.once('open', function() {
-  console.log("Conexão ao MongoDB realizada com sucesso...")
+const db = mysql.createPool({
+  host: "localhost",
+  user: "root",
+  password: "password",
+  database: "RestauraçUM",
 });
 
-var app = express();
+app.use(cors());
+app.use(express.json());
+app.use(bodyParser.urlencode({extended: true}))
+
+
+app.get("/api/get", (req, res) => {
+  const sqlSelect = "SELECT * FROM name_res";
+  db.query(sqlSelect, (err, result) => {
+    res.send(result);
+  });
+});
+
+
+app.post("/api/insert", (req, res)=> {
+
+  const name_res = req.body.name_res
+  const address = req.body.address
+  const description = req.body.description
+
+  const sqlInsert = "INSERT INTO restaurante (name_res, address, description) VALUES (?,?,?)"
+  db.query(sqlInsert, [name_res, address, description], (err, result) => {
+    console.log(result);
+  });
+});
+
+app.delete('/api/delete', (req, res) => {
+  const name = req.params.name_res
+  const sqlDelete = "DELETE FROM name_res WHERE name_res = ?";
+
+  db.query(sqlDelete, name, (err, result) => {
+    if (err)  console.log(err);
+  });
+});
+
+
+app.put("/api/update", (req, res) => {
+  const name = req.body.name_res;
+  const description = req.body.description;
+  const sqlUpdate = "UPDATE SET description description = ? WHERE name_res = ?";
+
+  db.query(sqlUpdate, [description, name], (err, result) => {
+    if (err) console.log(err);
+  });
+
+});
+
+app.listen(3001, () => {
+  console.log("running on port 3001");
+});
+
+
 
 app.use(cors())
 app.use(logger('dev'));
