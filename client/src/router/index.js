@@ -1,12 +1,25 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Authentication from '../views/Authentication.vue'
 
 
 
 Vue.use(VueRouter)
 
+Vue.use(VueRouter)
+
 const routes = [
-  
+  {
+    path: '/',
+    name: 'Authentication',
+    component: Authentication
+  },
+  {
+    path: '/authentication',
+    name: 'Authentication',
+    component: Authentication
+  }
+
   
 ]
 

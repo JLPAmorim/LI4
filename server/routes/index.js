@@ -2,10 +2,7 @@
 var express = require('express');
 var router = express.Router();
 const bcrypt = require('bcrypt')
-const Bet = require('../controllers/betController')
-const Event = require('../controllers/eventController')
-const User = require('../controllers/userController')
-const UserModel = require('../models/user')
+
 const jwt = require('jsonwebtoken')
 
 // Listar todos os utilizadores

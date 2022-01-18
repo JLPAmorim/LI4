@@ -12,31 +12,31 @@ const db = mysql.createPool({
   host: "localhost",
   user: "root",
   password: "password",
-  database: "RestauraçUM",
+  database: "restauracum",
 });
 
 app.use(cors());
 app.use(express.json());
-app.use(bodyParser.urlencode({extended: true}))
+app.use(bodyParser.urlencoded({extended: true}))
 
 
 app.get("/api/get", (req, res) => {
-  const sqlSelect = "SELECT * FROM name_res";
+  const sqlSelect = "SELECT * FROM restaurante";
   db.query(sqlSelect, (err, result) => {
     res.send(result);
   });
 });
 
 
-app.post("/api/insert", (req, res)=> {
+app.post("/user/insert", (req, res)=> {
 
-  const name_res = req.body.name_res
-  const address = req.body.address
-  const description = req.body.description
+  const username = req.body.username
+  const email = req.body.email
+  const password = req.body.password
 
-  const sqlInsert = "INSERT INTO restaurante (name_res, address, description) VALUES (?,?,?)"
-  db.query(sqlInsert, [name_res, address, description], (err, result) => {
-    console.log(result);
+  const sqlInsert = "INSERT INTO user (username, email, password) VALUES (?,?,?)"
+  db.query(sqlInsert, [username, email, password], (err, result) => {
+    console.log(err);
   });
 });
 
