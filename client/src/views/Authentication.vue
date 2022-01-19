@@ -149,7 +149,7 @@ export default {
               email: this.email,
               password: this.password
           }
-          axios.post(`http://localhost:8001/user/insert`, newUser)
+          axios.post(`http://localhost:8001/user`, newUser)
             .then(function(response){
               console.log(response)
             },(error) =>{
@@ -167,7 +167,7 @@ export default {
             .then(response => {
               console.log(response)
               localStorage.setItem('token', response.data.token)
-              this.$router.push('/betting')
+              this.$router.push('/detalhes')
             },(error) =>{
               console.log(error);
           }); 

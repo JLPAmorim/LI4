@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Authentication from '../views/Authentication.vue'
+import AccountDetails from '../views/AccountDetails.vue'
 
 
 
@@ -18,6 +19,11 @@ const routes = [
     path: '/authentication',
     name: 'Authentication',
     component: Authentication
+  },
+  {
+    path: '/detalhes',
+    name: 'AccountDetails',
+    component: AccountDetails
   }
 
   

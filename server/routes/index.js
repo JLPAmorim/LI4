@@ -1,9 +1,8 @@
 // Roteador do servidor API
 var express = require('express');
 var router = express.Router();
-const bcrypt = require('bcrypt')
-
-const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 // Listar todos os utilizadores
 router.get('/user', (req, res, next) => {
@@ -34,18 +33,10 @@ router.post('/user', function(req, res){
   const newUser = {
     name: req.body.name,
     email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 10),
-    type: 'User',
-    balance: {
-      EUR: '0.00',
-      USD: '0.00',
-      GBP: '0.00',
-      ADA: '0.00'
-    },
-    currentCoin: 'EUR',
-    balance_history: []
+    password: bcrypt.hashSync(req.body.password, 10)
   }
-  User.inserir(newUser)
+   
+  User.regista(newUser)
     .then(dados => res.status(201).jsonp({dados: dados}))
     .catch(e => res.status(500).jsonp({error: 'Email in use'}))
 })

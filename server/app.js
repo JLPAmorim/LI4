@@ -8,12 +8,21 @@ const bodyParser = require('body-parser')
 
 var indexRouter = require('./routes/index');
 
-const db = mysql.createPool({
+const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "password",
   database: "restauracum",
 });
+
+db.connect( (error) => {
+  if(error) {
+    console.log(error)
+    } else {
+      console.log("MYSQL Connected...")
+    }
+
+})
 
 app.use(cors());
 app.use(express.json());
@@ -28,7 +37,7 @@ app.get("/api/get", (req, res) => {
 });
 
 
-app.post("/user/insert", (req, res)=> {
+app.post("/register", (req, res)=> {
 
   const username = req.body.username
   const email = req.body.email
