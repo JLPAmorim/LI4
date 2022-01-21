@@ -3,13 +3,22 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+
+const store = new Vuex.Store({
   state: {
+    logged: false,
+    userName:"",
+    userType:"",
   },
   mutations: {
+    logout(state){state.logged = false},
+    login(state){state.logged = true},
   },
-  actions: {
-  },
-  modules: {
+  getters: {
+    logged: function (state) {
+      return state.logged;
+    },
   }
 })
+
+export default store

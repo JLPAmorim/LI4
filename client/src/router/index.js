@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
+//All views
 import Authentication from '../views/Authentication.vue'
 import AccountDetails from '../views/AccountDetails.vue'
 import HomePage from '../views/HomePage.vue'
@@ -13,11 +15,6 @@ Vue.use(VueRouter)
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/', //esta dos vai mudar
-    name: 'Authentication',
-    component: Authentication
-  },
   {
     path: '/autenticar', //site é pt
     name: 'Authentication',
@@ -34,7 +31,7 @@ const routes = [
     component: AccountDetails
   },
   {
-    path: '/main', //exta dps vai ser s '/'
+    path: '/', //exta dps vai ser s '/'
     name: 'HomePage',
     component: HomePage
   },

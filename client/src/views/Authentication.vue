@@ -4,11 +4,7 @@
       <v-col cols="12" md="6" v-for="k in 2" :key="k">
         <!--Image on left side-->
         <v-card v-if="k == 1" color="transparent" height="100vh" tile>
-          <v-img
-            lazy-src="../assets/error.png"
-            src="../assets/signIn.png"
-            height="100vh"
-          >
+          <v-img src="../assets/signIn.png" height="100vh">
             <v-overlay color="#E2B887" opacity=".4" absolute></v-overlay
           ></v-img>
         </v-card>
@@ -52,6 +48,7 @@
             text
             id="no-background-hover"
             plain
+            to="/criar"
           >
             Criar uma conta
           </v-btn>
@@ -235,22 +232,6 @@ export default {
     };
   },
   methods: {
-    register() {
-      let newUser = {
-        username: this.name,
-        email: this.email,
-        password: this.password,
-      };
-      axios.post(`http://localhost:8001/user`, newUser).then(
-        function (response) {
-          console.log(response);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    },
-
     login() {
       let loginUser = {
         email: this.email,
@@ -261,7 +242,8 @@ export default {
         (response) => {
           console.log(response);
           localStorage.setItem("token", response.data.token);
-          this.$router.push("/detalhes");
+          //mudar aqui o estado de login
+          this.$router.push("/");
         },
         (error) => {
           console.log(error);

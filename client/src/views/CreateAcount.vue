@@ -4,12 +4,7 @@
       <v-col cols="12" md="6" v-for="k in 2" :key="k">
         <!--Image on left side-->
         <v-card v-if="k == 1" color="transparent" height="100vh" tile>
-          <v-img
-            lazy-src="../assets/error.png"
-            src="../assets/signUp.png"
-            width="50vw"
-            height="100vh"
-          >
+          <v-img src="../assets/signUp.png" width="50vw" height="100vh">
             <v-overlay color="#E2B887" opacity=".4" absolute></v-overlay
           ></v-img>
         </v-card>
@@ -60,7 +55,7 @@
             >Registar</v-btn
           >
 
-          <v-btn class="sign-in-prop text-none" text plain>
+          <v-btn class="sign-in-prop text-none" text plain to="/autenticar">
             Já tem uma conta? Autentifique-se
           </v-btn>
         </v-card>
@@ -97,24 +92,6 @@ export default {
       axios.post(`http://localhost:8001/user`, newUser).then(
         function (response) {
           console.log(response);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    },
-
-    login() {
-      let loginUser = {
-        email: this.email,
-        password: this.password,
-      };
-
-      axios.post(`http://localhost:8001/login`, loginUser).then(
-        (response) => {
-          console.log(response);
-          localStorage.setItem("token", response.data.token);
-          this.$router.push("/detalhes");
         },
         (error) => {
           console.log(error);
