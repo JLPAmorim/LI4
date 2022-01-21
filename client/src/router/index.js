@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Authentication from '../views/Authentication.vue'
 import AccountDetails from '../views/AccountDetails.vue'
 import HomePage from '../views/HomePage.vue'
+import ChooseRestaurant from '../views/ChooseRestaurant.vue'
 
 
 
@@ -31,7 +32,11 @@ const routes = [
     name: 'HomePage',
     component: HomePage
   },
-
+  {
+    path: '/choices', //exta dps vai ser s '/'
+    name: 'ChooseRestaurant',
+    component: ChooseRestaurant
+  },
 
   
 ]
