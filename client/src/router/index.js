@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Authentication from '../views/Authentication.vue'
 import AccountDetails from '../views/AccountDetails.vue'
+import HomePage from '../views/HomePage.vue'
 
 
 
@@ -11,7 +12,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/', //esta dos vai mudar
     name: 'Authentication',
     component: Authentication
   },
@@ -24,7 +25,13 @@ const routes = [
     path: '/detalhes',
     name: 'AccountDetails',
     component: AccountDetails
-  }
+  },
+  {
+    path: '/main', //exta dps vai ser s '/'
+    name: 'HomePage',
+    component: HomePage
+  },
+
 
   
 ]
