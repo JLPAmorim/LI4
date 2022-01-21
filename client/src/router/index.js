@@ -4,6 +4,7 @@ import Authentication from '../views/Authentication.vue'
 import AccountDetails from '../views/AccountDetails.vue'
 import HomePage from '../views/HomePage.vue'
 import ChooseRestaurant from '../views/ChooseRestaurant.vue'
+import CreateAcount from '../views/CreateAcount.vue'
 
 
 
@@ -18,9 +19,14 @@ const routes = [
     component: Authentication
   },
   {
-    path: '/authentication',
+    path: '/autenticar', //site é pt
     name: 'Authentication',
     component: Authentication
+  },
+  {
+    path: '/criar',
+    name: 'CreateAcount',
+    component: CreateAcount
   },
   {
     path: '/detalhes',
