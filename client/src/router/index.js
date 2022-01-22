@@ -7,6 +7,8 @@ import AccountDetails from '../views/AccountDetails.vue'
 import HomePage from '../views/HomePage.vue'
 import ChooseRestaurant from '../views/ChooseRestaurant.vue'
 import CreateAcount from '../views/CreateAcount.vue'
+import Team from '../views/Team.vue'
+import AboutUs from '../views/AboutUs.vue'
 
 
 
@@ -31,14 +33,24 @@ const routes = [
     component: AccountDetails
   },
   {
-    path: '/', //exta dps vai ser s '/'
+    path: '/', 
     name: 'HomePage',
     component: HomePage
   },
   {
-    path: '/choices', //exta dps vai ser s '/'
+    path: '/choices',
     name: 'ChooseRestaurant',
     component: ChooseRestaurant
+  },
+  {
+    path: '/team',
+    name: 'Team',
+    component: Team
+  },
+  {
+    path: '/aboutus',
+    name: 'AboutUs',
+    component: AboutUs
   },
 
   

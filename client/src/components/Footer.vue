@@ -1,9 +1,8 @@
 <template>
-  <v-footer dark padless fixed bottom class="mt-16">
-    <v-card class="flex" flat tile height="100%">
-      <v-card-title class="#0B0D17" height="1">
-        <v-btn v-for="link in links" :key="link" color="white" text rounded>
-          {{ link }}
+  <v-footer color="#141515" padless fixed bottom class="mt-16">
+
+        <v-btn v-for="link in links" :key="link" color="white" text flat :to="link.route">
+          {{ link.text }}
         </v-btn>
 
         <v-spacer></v-spacer>
@@ -13,22 +12,18 @@
             {{ icon }}
           </v-icon>
         </v-btn>
-      </v-card-title>
-
-      <!--
-      <v-card-text class="py-2 white--text text-center">
-        {{ new Date().getFullYear() }} — <strong>RASBet</strong>
-      </v-card-text>
-      -->
-    </v-card>
   </v-footer>
+
 </template>
 
 <script>
 export default {
   data: () => ({
     icons: ["mdi-facebook", "mdi-twitter", "mdi-instagram"],
-    links: ["Home", "About Us", "Team", "Contact Us"],
+    links: [
+      {text:"Home", route:"/"}, 
+      {text:"About Us", route:"/aboutus"}, 
+      {text:"Team", route:"/team"}],
   }),
 };
 </script>

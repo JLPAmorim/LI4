@@ -21,14 +21,14 @@
     <div class="spacer"></div>-->
 
     <!--Caso não tenha feito login-->
-    <v-btn v-if="!logged" v-bind="attrs" color="#e4c5a3" text to="/autenticar">
+    <v-btn v-if="!logged" v-bind="attrs" color="#ebd9c6" text to="/autenticar">
       Autenticar
     </v-btn>
 
     <v-btn
       v-if="!logged"
       v-bind="attrs"
-      color="#e4c5a3"
+      color="#e9cfb4"
       style="color: #00302e"
       class="mr-16"
       to="/criar"
@@ -37,29 +37,33 @@
     </v-btn>
 
     <!--Caso já tenha feito login-->
+    <v-card-text v-if="logged" class="text-right greeting">Olá {{nameAnon}}!</v-card-text>
+
     <v-menu v-if="logged" :rounded="rounded" offset-y>
       <template v-slot:activator="{ on: menu }">
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on: tooltip }">
-            <v-btn fab v-on="{ ...tooltip, ...menu }" class="mr-10">
+            <v-btn fab v-on="{ ...menu }" class="mr-5">
               <v-avatar>
                 <v-img src="../assets/defaultuser.jpg" />
               </v-avatar>
             </v-btn>
-          </template>
-          <span> </span>
-        </v-tooltip>
       </template>
 
       <!--Lista do menu do utilizador-->
-      <v-list>
-        <v-list-item class="mb-3" link :to="asd">
-          <v-avatar class="mr-3">
+        <v-list>
+
+
+          <v-list-item class="mb-3" >
+          <v-avatar class="mr-3" tile>
             <v-img src="../assets/defaultuser.jpg" />
           </v-avatar>
-          <h4>{{ nameAnon }}</h4>
-        </v-list-item>
+          <v-list dense>
+          <v-list-item dense><h4>{{ nameAnon }}</h4></v-list-item>
+          <v-list-item class="mt-n5" v-if="this.user_type === 'admin'" ><h6> Admin </h6></v-list-item>
+          <v-list-item class="mt-n5" v-else > <h6>User</h6></v-list-item>
 
+          </v-list>
+        </v-list-item>
+        <v-divider class="mt-n2"/>
         <!--Lista para ADMIN-->
         <v-list-item v-if="this.user_type === 'admin'" link :to="admin">
           <v-icon class="mr-2">mdi-plus</v-icon>
@@ -67,6 +71,12 @@
         </v-list-item>
 
         <!--Lista para todos os tipos de usuarios-->
+        <v-list-item @click="logout" text>
+          <v-icon>mdi-account</v-icon>
+          <v-list-item-title>Perfil</v-list-item-title>
+        </v-list-item>
+
+
         <v-list-item @click="logout" text>
           <v-icon>mdi-logout</v-icon>
           <v-list-item-title>Sair da conta</v-list-item-title>
@@ -83,7 +93,7 @@ export default {
   data() {
     return {
       logged: true,
-      user_type: "",
+      user_type: "admin",
       nameAnon: "anonimo",
     };
   },
@@ -122,6 +132,11 @@ h1 {
   background-color: transparent;
 }
 
+.greeting{
+  color: #ebd9c6;
+  font-size: 2vh;
+}
+
 .min-button::before {
   display: none;
 }
@@ -149,4 +164,10 @@ h1 {
                 }
                 this.user_type= res.data.user.type
         })      
-    },-->
+    },
+    
+    
+    
+    
+      
+        -->

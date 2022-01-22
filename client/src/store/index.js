@@ -13,6 +13,8 @@ const store = new Vuex.Store({
   mutations: {
     logout(state){state.logged = false},
     login(state){state.logged = true},
+    setUserName(state, name){state.userName = name},
+    setUserType(state, type){state.userType = type}
   },
   getters: {
     logged: function (state) {
