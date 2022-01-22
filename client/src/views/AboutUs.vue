@@ -3,8 +3,7 @@
     <Header />
     <v-container fill-height fluid>
       <v-row align="center" justify="center">
-        <v-col cols="12" md="3" v-for="member in members " :key="member">
-
+        <v-col cols="12" md="3" v-for="member in members" :key="member">
         </v-col>
       </v-row>
     </v-container>
@@ -24,8 +23,9 @@ export default {
     Footer,
     Header,
   },
-  data: function() {
-    return {};},
+  data: function () {
+    return {};
+  },
 };
 </script>
 
@@ -34,6 +34,4 @@ export default {
   background-color: white;
   height: "50vh";
 }
-
-
 </style>

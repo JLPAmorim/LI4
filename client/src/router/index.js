@@ -9,6 +9,7 @@ import ChooseRestaurant from '../views/ChooseRestaurant.vue'
 import CreateAcount from '../views/CreateAcount.vue'
 import Team from '../views/Team.vue'
 import AboutUs from '../views/AboutUs.vue'
+import Results from '../views/Results.vue'
 
 
 
@@ -51,6 +52,11 @@ const routes = [
     path: '/aboutus',
     name: 'AboutUs',
     component: AboutUs
+  },
+  {
+    path: '/results',
+    name: 'Results',
+    component: Results
   },
 
   

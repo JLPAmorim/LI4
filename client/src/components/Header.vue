@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar color="#00302E" height="90" clipped-left elevate-on-scroll>
+  <v-app-bar color="#00302E" clipped-left elevation="0">
     <a href="/">
       <v-avatar color="#00302E" size="75" class="ml-5">
         <v-img src="../assets/logotipo.png" />
@@ -37,33 +37,36 @@
     </v-btn>
 
     <!--Caso já tenha feito login-->
-    <v-card-text v-if="logged" class="text-right greeting">Olá {{nameAnon}}!</v-card-text>
+    <v-card-text v-if="logged" class="text-right greeting"
+      >Olá {{ nameAnon }}!</v-card-text
+    >
 
     <v-menu v-if="logged" :rounded="rounded" offset-y>
       <template v-slot:activator="{ on: menu }">
-            <v-btn fab v-on="{ ...menu }" class="mr-5">
-              <v-avatar>
-                <v-img src="../assets/defaultuser.jpg" />
-              </v-avatar>
-            </v-btn>
+        <v-btn fab v-on="{ ...menu }" class="mr-5">
+          <v-avatar>
+            <v-img src="../assets/defaultuser.jpg" />
+          </v-avatar>
+        </v-btn>
       </template>
 
       <!--Lista do menu do utilizador-->
-        <v-list>
-
-
-          <v-list-item class="mb-3" >
+      <v-list>
+        <v-list-item class="mb-3">
           <v-avatar class="mr-3" tile>
             <v-img src="../assets/defaultuser.jpg" />
           </v-avatar>
           <v-list dense>
-          <v-list-item dense><h4>{{ nameAnon }}</h4></v-list-item>
-          <v-list-item class="mt-n5" v-if="this.user_type === 'admin'" ><h6> Admin </h6></v-list-item>
-          <v-list-item class="mt-n5" v-else > <h6>User</h6></v-list-item>
-
+            <v-list-item dense
+              ><h4>{{ nameAnon }}</h4></v-list-item
+            >
+            <v-list-item class="mt-n5" v-if="this.user_type === 'admin'"
+              ><h6>Admin</h6></v-list-item
+            >
+            <v-list-item class="mt-n5" v-else> <h6>User</h6></v-list-item>
           </v-list>
         </v-list-item>
-        <v-divider class="mt-n2"/>
+        <v-divider class="mt-n2" />
         <!--Lista para ADMIN-->
         <v-list-item v-if="this.user_type === 'admin'" link :to="admin">
           <v-icon class="mr-2">mdi-plus</v-icon>
@@ -75,7 +78,6 @@
           <v-icon>mdi-account</v-icon>
           <v-list-item-title>Perfil</v-list-item-title>
         </v-list-item>
-
 
         <v-list-item @click="logout" text>
           <v-icon>mdi-logout</v-icon>
@@ -132,7 +134,7 @@ h1 {
   background-color: transparent;
 }
 
-.greeting{
+.greeting {
   color: #ebd9c6;
   font-size: 2vh;
 }
