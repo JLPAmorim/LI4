@@ -29,7 +29,7 @@ const routes = [
     component: CreateAcount
   },
   {
-    path: '/detalhes',
+    path: '/perfils',
     name: 'AccountDetails',
     component: AccountDetails
   },
@@ -44,17 +44,17 @@ const routes = [
     component: ChooseRestaurant
   },
   {
-    path: '/team',
+    path: '/equipa',
     name: 'Team',
     component: Team
   },
   {
-    path: '/aboutus',
+    path: '/sobrenos',
     name: 'AboutUs',
     component: AboutUs
   },
   {
-    path: '/results',
+    path: '/resultados',
     name: 'Results',
     component: Results
   },

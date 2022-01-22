@@ -5,21 +5,25 @@
       <v-list>
         <v-list-item v-for="k in 10" :key="k" class="mb-5">
           <v-btn height="15vh" block depressed>
-            <v-img
-              :scr="require('../assets/' + restaurante.photo + '.jpg')"
-              class="photo-prop ma-0"
-            />
+            <!--Photo-->
+            <v-avatar size="15vh" tile color="#d3d3d3" class="photo-prop">
+              <v-img
+                :src="require('../assets/' + restaurante.photo + '.png')"
+              />
+            </v-avatar>
+
+            <!--Informação do restaurante-->
             <v-card color="transparent" flat>
-              <v-card-text class="name-prop text-left">{{
+              <v-card-text class="name-prop text-left ml-7">{{
                 restaurante.name
               }}</v-card-text>
-              <v-card-text class="inf-prop mt-n9 text-left">{{
+              <v-card-text class="inf-prop mt-n9 text-left ml-7">{{
                 restaurante.adress
               }}</v-card-text>
-              <v-card-text class="inf-prop mt-n9 text-left">{{
+              <v-card-text class="inf-prop mt-n9 text-left ml-7">{{
                 restaurante.time
               }}</v-card-text>
-              <v-card-text class="inf-prop mt-n9 text-left">{{
+              <v-card-text class="inf-prop mt-n9 text-left ml-7">{{
                 restaurante.cost
               }}</v-card-text>
             </v-card>
@@ -46,7 +50,7 @@ export default {
     return {
       /*Teste*/
       restaurante: {
-        photo: "defaultuser",
+        photo: "signIn",
         name: "restaurante",
         adress: "Rua 1, nº123, Braga",
         time: "Aberto ate 00:00",
@@ -80,8 +84,8 @@ export default {
 }
 
 .photo-prop {
-  max-height: 5vh !important;
-  max-width: 5vh !important;
+  position: absolute;
+  left: 0px;
 }
 
 .name-prop {

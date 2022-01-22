@@ -1,7 +1,7 @@
 <template>
-  <v-app-bar color="#00302E" clipped-left elevation="0">
+  <v-app-bar color="#00302E" clipped-left elevation="0" size="70">
     <a href="/">
-      <v-avatar color="#00302E" size="75" class="ml-5">
+      <v-avatar color="#00302E" size="70" class="ml-5">
         <v-img src="../assets/logotipo.png" />
       </v-avatar>
     </a>
@@ -67,14 +67,15 @@
           </v-list>
         </v-list-item>
         <v-divider class="mt-n2" />
+
         <!--Lista para ADMIN-->
-        <v-list-item v-if="this.user_type === 'admin'" link :to="admin">
+        <v-list-item v-if="this.user_type === 'admin'" to="/admin">
           <v-icon class="mr-2">mdi-plus</v-icon>
           <v-list-item-title> Inserir Restaurante</v-list-item-title>
         </v-list-item>
 
         <!--Lista para todos os tipos de usuarios-->
-        <v-list-item @click="logout" text>
+        <v-list-item text to="/perfil">
           <v-icon>mdi-account</v-icon>
           <v-list-item-title>Perfil</v-list-item-title>
         </v-list-item>
