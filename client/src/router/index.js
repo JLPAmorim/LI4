@@ -10,6 +10,7 @@ import CreateAcount from '../views/CreateAcount.vue'
 import Team from '../views/Team.vue'
 import AboutUs from '../views/AboutUs.vue'
 import Results from '../views/Results.vue'
+import Perfil from '../views/Perfil.vue'
 
 
 
@@ -29,7 +30,7 @@ const routes = [
     component: CreateAcount
   },
   {
-    path: '/perfil',
+    path: '/detalhes',
     name: 'AccountDetails',
     component: AccountDetails
   },
@@ -57,6 +58,11 @@ const routes = [
     path: '/resultados',
     name: 'Results',
     component: Results
+  },
+  {
+    path: '/perfil',
+    name: 'Perfil',
+    component: Perfil
   },
 
   
