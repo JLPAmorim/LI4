@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar color="#00302E" clipped-left elevation="0" size="70">
+  <v-app-bar color="#00302E" clipped-left elevation="0" height="70">
     <a href="/">
       <v-avatar color="#00302E" size="70" class="ml-5">
         <v-img src="../assets/logotipo.png" />

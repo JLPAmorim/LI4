@@ -29,7 +29,7 @@ const routes = [
     component: CreateAcount
   },
   {
-    path: '/perfils',
+    path: '/perfil',
     name: 'AccountDetails',
     component: AccountDetails
   },
@@ -39,7 +39,7 @@ const routes = [
     component: HomePage
   },
   {
-    path: '/choices',
+    path: '/escolha',
     name: 'ChooseRestaurant',
     component: ChooseRestaurant
   },
