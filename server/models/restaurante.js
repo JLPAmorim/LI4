@@ -13,6 +13,19 @@ const Restaurante = function(rest) {
   this.dine_in = rest.dine_in
 };
 
+Restaurante.create = (newRestaurante, result) => {
+    sql.query("INSERT INTO restaurant SET ?", newRestaurante, (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
+  
+      console.log("created restaurante: ", { id: res.insertId, ...newRestaurante });
+      result(null, { id: res.insertId, ...newRestaurante });
+    });
+  };
+
 Restaurante.getAll = (result) => {
   let query = "SELECT * FROM restaurant";
 
