@@ -68,19 +68,19 @@ export default {
 }
 
 .drawer-prop {
-  overflow-y: scroll;
+  overflow-y: hidden;
   scroll-behavior: smooth;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
-.drawer-prop::-webkit-scrollbar {
-  display: none;
+.drawer-prop:hover {
+  overflow-y: auto;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
-.drawer-prop {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+.drawer-prop p {
+  padding-right: 16px;
+}
+.drawer-prop:hover p {
+  padding-right: 0px;
 }
 
 .photo-prop {
