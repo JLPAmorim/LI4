@@ -11,6 +11,7 @@ import Team from '../views/Team.vue'
 import AboutUs from '../views/AboutUs.vue'
 import Results from '../views/Results.vue'
 import Perfil from '../views/Perfil.vue'
+import Admin from '../views/Admin.vue'
 
 
 
@@ -28,6 +29,11 @@ const routes = [
     path: '/criar',
     name: 'CreateAcount',
     component: CreateAcount
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: Admin
   },
   {
     path: '/detalhes',
