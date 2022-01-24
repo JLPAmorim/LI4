@@ -1,22 +1,28 @@
 <template>
   <v-app>
     <Header />
-    <v-container  fill-height fluid>
+    <v-container fill-height fluid>
       <v-row no-gutters>
         <!--esquerda-->
         <v-col cols="12" md="6">
-          <v-card color="transparent" height="78vh" tile flat>
+          <v-card
+            color="transparent"
+            height="68vh"
+            tile
+            flat
+            class="text-center"
+            style="top: 20%"
+          >
             <v-img
               :src="require('../assets/' + restaurante.photo + '.png')"
               height="50vh"
               width="50vh"
-              class="mx-auto mt-16"
+              class="mx-auto"
             >
               <v-overlay color="#E2B887" opacity=".4" absolute></v-overlay
             ></v-img>
-            <v-card-text class="text-center username-prop pt-6">{{
-              nome
-            }}</v-card-text>
+            <v-card-text class="username-prop pt-6">{{ name }}</v-card-text>
+            <v-btn to="/detalhes" class="text-none" text>Editar perfil</v-btn>
           </v-card>
         </v-col>
         <v-col cols="12" md="6">
@@ -25,7 +31,7 @@
           >
 
           <v-divider class="mr-7" />
-          <v-card class="drawer-prop ma-3 " tile flat>
+          <v-card class="drawer-prop ma-3" tile flat>
             <v-list>
               <v-list-item v-for="k in 10" :key="k" class="mb-5">
                 <v-btn height="15vh" width="45vw" depressed>
@@ -82,7 +88,7 @@ export default {
         time: "Aberto ate 00:00",
         cost: "€€",
       },
-      nome: "Anónimo Oliveira",
+      name: "",
     };
   },
 };

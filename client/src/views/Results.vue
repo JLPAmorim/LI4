@@ -12,7 +12,7 @@
                   <!--Photo-->
                   <v-avatar size="15vh" tile color="#d3d3d3" class="photo-prop">
                     <v-img
-                      :src="require('../assets/' + restaurante.photo + '.png')"
+                      :src="require('../assets/' + photo + '.png')"
                     />
                   </v-avatar>
 
@@ -38,7 +38,7 @@
           <!--Fim de resultados-->
         </v-col>
         <v-col cols="12" md="9">
-          <gmap-map :center="mapCenter" :zoom="12" style="width:1390px; height:730px; margin: 10px auto">
+          <gmap-map :center="mapCenter" :zoom="14" style="width:1390px; height:730px; margin: 10px auto">
               <gmap-info-window :options="infoWindowOptions" :position="infoWindowPosition" :opened="infoWindowOpened" @closeclick="handleInfoWindowClose">
                   <div class="info-window">
                       <h2 v-text="activeRestaurant.name"/>
@@ -78,13 +78,7 @@ export default {
     return {
       /*Teste*/
       drawer: null,
-      restaurante: {
-        photo: "signIn",
-        name: "restaurante",
-        adress: "Rua 1, nº123, Braga",
-        time: "Aberto ate 00:00",
-        cost: "€€",
-      },
+      photo: "signIn",
       restaurants: [],
       infoWindowOptions: {
         pixelOffset: {
@@ -93,7 +87,11 @@ export default {
         }
       },
       activeRestaurant: {},
-      infoWindowOpened: false
+      infoWindowOpened: false,
+      typePesquisa: '',
+      radius: 0,
+      tempLat: 0,
+      tempLng: 0
     };
   },
 
@@ -104,6 +102,19 @@ export default {
           },(error) =>{
               console.log(error);
           }); 
+
+      
+      if(this.$route.params.data === 'local'){
+          this.typePesquisa = this.$route.params.data
+          this.radius = 10
+      }
+
+      if(this.$route.params.data.tipo === 'notLocal'){
+         this.typePesquisa = this.$route.params.data.tipo
+         this.tempLat = this.$route.params.data.latitude
+         this.tempLng = this.$route.params.data.longitude
+         this.radius = parseFloat(this.$route.params.data.radius)
+      }
   },
 
   methods: {
@@ -124,6 +135,19 @@ export default {
   },
   computed: {
       mapCenter(){
+        if(this.typePesquisa === 'local'){
+            return {
+                lat: 38.71770883641866,
+                lng: -9.151242248243376
+            }
+        }
+
+        if(this.typePesquisa === 'notLocal'){
+            return {
+                lat: this.tempLat,
+                lng: this.tempLng
+            }
+        }
           if(!this.restaurants.length){
               return {
                 lat: 38.7436883,

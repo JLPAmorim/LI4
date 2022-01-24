@@ -2,6 +2,7 @@ const Restaurante = require("../models/restaurante.js");
 
 exports.create = (req, res) => {
   // Validate request
+  console.log(req.body)
   if (!req.body) {
     res.status(400).send({
       message: "Content can not be empty!"
@@ -13,7 +14,8 @@ exports.create = (req, res) => {
     name: req.body.name,
     mobile: req.body.mobile,
     address: req.body.address,
-    coordinates: req.body.coordinates,
+    latitude: req.body.latitude,
+    longitude: req.body.longitude,
     description: req.body.description,
     price_level: req.body.price_level,
     takeaway: req.body.takeaway,

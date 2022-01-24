@@ -2,16 +2,17 @@
   <v-app>
     <Header />
     <v-container fill-height fluid>
-      <v-row align="center" justify="center" v-click-outside="onClickOutside">
+      <v-row align="center" justify="center">
         <v-col cols="12" md="4" v-for="k in 2" :key="k" >
           <!--Choose in Map button-->
           <v-card
             v-if="k == 1"
             flat
             class="btn-prop mt-n15 text-center"
+            
             rounded="lg"
             color="#e1e1e1"
-            @click="active = true"
+            
             v-ripple="false"
             
           >
@@ -47,6 +48,7 @@
                         v-model="radius"
                         label="Raio"
                         color="#00302e"
+                        type="number"
                         solo
                         flat
                         class="mt-10"
@@ -58,7 +60,6 @@
                 </v-container>
               </v-form>
               <v-btn
-                :disabled="!valid"
                 color="#00302e"
                 width="46vh"
                 height="7vh"
@@ -74,7 +75,7 @@
           <v-card
             v-else
             rounded="lg"
-            to="/resultados"
+            @click="pesqLocal(local)"
             flat
             color="#e1e1e1"
             class="mt-n15 btn-prop text-center"
@@ -104,25 +105,28 @@ export default {
   },
   data() {
     return {
-      active: false,
+      active: true,
       valid: false,
-      concelhos: [{name:'Ajuda', latitude: '38.71039412005384', longitude: '-9.200427339321811'}, {name:'Alcântara', latitude: '38.70601308630938', longitude: '-9.182757243524021'}, 
-                  {name:'Areeiro', latitude: '38.74475352481073', longitude: '-9.134389594487757'}, {name:'Arroios', latitude: '38.73349360214666', longitude: '-9.13444248550311'},
-                  {name:'Avenidas Novas', latitude: '38.74133193296114', longitude: '-9.146505694122883'}, {name:'Beato', latitude: '38.7349488496629', longitude: '-9.105905830005277'},
-                  {name:'Belém', latitude: '38.69965962878386', longitude: '-9.220308187361322'}, {name:'Benfica', latitude: '38.75101013650626', longitude: '-9.202554314659057'},
-                  {name:'Campo de Ourique', latitude: '38.72130562241478', longitude: '-9.16725502615812'}, {name:'Campolide', latitude: '38.73816468524725', longitude: '-9.163774036496418'},
-                  {name:'Carnide', latitude: '38.75722942353298', longitude: '-9.191245068634741'}, {name:'Estrela', latitude: '38.70369740311072', longitude: '-9.168109391363949'},
-                  {name:'Lumiar', latitude: '38.7751592385185', longitude: '-9.162491961787628'}, {name:'Marvila', latitude: '38.740463726645004', longitude: '-9.107409030003428'},
-                  {name:'Misericórdia', latitude: '38.71178358837767', longitude: '-9.142923802556906'}, {name:'Olivais', latitude: '38.76752063605735', longitude: '-9.10446139926655'},
-                  {name:'Parque das Nações', latitude: '38.768596522090775', longitude: '-9.095978404891312'}, {name:'Penha de França', latitude: '38.725906528212604', longitude: '-9.12756492273621'},
-                  {name:'Santa Clara', latitude: '38.786551533899775', longitude: '-9.142206482781559'}, {name:'Santa Maria Maior', latitude: '38.71175130131151', longitude: '-9.13579203551215'},
-                  {name:'Santo António', latitude: '38.7232928498108', longitude: '-9.148265194050834'}, {name:'São Domingos de Benfica', latitude: '38.7500098463503', longitude: '-9.168443401044435'},
-                  {name:'São Vicente', latitude: '38.71981354985076', longitude: '-9.129689948856681 '}, {name:'Alvalade', latitude: '38.754747629475176', longitude: '-9.144247845339553'}
+      radius: 0,
+      local: 'local',
+      notLocal: 'notLocal',
+      concelhos: [{name:'Ajuda', latitude: 38.71039412005384, longitude: -9.200427339321811}, {name:'Alcântara', latitude: 38.70601308630938, longitude: -9.182757243524021}, 
+                  {name:'Areeiro', latitude: 38.74475352481073, longitude: -9.134389594487757}, {name:'Arroios', latitude: 38.73349360214666, longitude: -9.13444248550311},
+                  {name:'Avenidas Novas', latitude: 38.74133193296114, longitude: -9.146505694122883}, {name:'Beato', latitude: 38.7349488496629, longitude: -9.105905830005277},
+                  {name:'Belém', latitude: 38.69965962878386, longitude: -9.220308187361322}, {name:'Benfica', latitude: 38.75101013650626, longitude: -9.202554314659057},
+                  {name:'Campo de Ourique', latitude: 38.72130562241478, longitude: -9.16725502615812}, {name:'Campolide', latitude: 38.73816468524725, longitude: -9.163774036496418},
+                  {name:'Carnide', latitude: 38.75722942353298, longitude: -9.191245068634741}, {name:'Estrela', latitude: 38.70369740311072, longitude: -9.168109391363949},
+                  {name:'Lumiar', latitude: 38.7751592385185, longitude: -9.162491961787628}, {name:'Marvila', latitude: 38.740463726645004, longitude: -9.107409030003428},
+                  {name:'Misericórdia', latitude: 38.71178358837767, longitude: -9.142923802556906}, {name:'Olivais', latitude: 38.76752063605735, longitude: -9.10446139926655},
+                  {name:'Parque das Nações', latitude: 38.768596522090775, longitude: -9.095978404891312}, {name:'Penha de França', latitude: 38.725906528212604, longitude: -9.12756492273621},
+                  {name:'Santa Clara', latitude: 38.786551533899775, longitude: -9.142206482781559}, {name:'Santa Maria Maior', latitude: 38.71175130131151, longitude: -9.13579203551215},
+                  {name:'Santo António', latitude: 38.7232928498108, longitude: -9.148265194050834}, {name:'São Domingos de Benfica', latitude: 38.7500098463503, longitude: -9.168443401044435},
+                  {name:'São Vicente', latitude: 38.71981354985076, longitude: -9.129689948856681 }, {name:'Alvalade', latitude: 38.754747629475176, longitude: -9.144247845339553}
       ],
       location: '',
       rules: {
             required: [(v) => !!v || "Field is required"],
-      }
+      },
     };
   },
   methods: {
@@ -130,8 +134,34 @@ export default {
       this.active = false;
     },
     pesquisar(){
-      console.log(this.location)
-    }
+      let data = {
+          latitude: 0,
+          longitude: 0,
+          tipo: '',
+          radius: 0
+      }
+
+      this.concelhos.forEach((obj)=>{
+           if(obj.name === this.location){
+             data.latitude = obj.latitude
+             data.longitude = obj.longitude
+             data.tipo = this.notLocal
+             data.radius = this.radius
+           }
+      })
+      
+      this.$router.push({
+          name: "Results", 
+          params: { data }
+      });
+    },
+    
+    pesqLocal(data){
+        this.$router.push({
+          name: "Results", 
+          params: { data }
+        });
+      },
   },
 };
 </script>

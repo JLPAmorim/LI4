@@ -53,19 +53,19 @@
           </v-avatar>
           <h4>{{nome}}</h4>
         </v-list-item>
-        <v-list-item v-if="user_type=='Admin'" link :to="admin">
+        <v-list-item v-if="type=='Admin'" to="/admin">
           <v-icon class="mr-3">mdi-silverware</v-icon>
           <v-list-item-title> Inserir Restaurante</v-list-item-title>
         </v-list-item>
 
-        <v-list-item  link :to="admin">
-          <v-icon class="mr-3">mdi-food</v-icon>
-          <v-list-item-title> Restaurantes Visitados</v-list-item-title>
+        <v-list-item to="/perfil">
+          <v-icon class="mr-3">mdi-account</v-icon>
+          <v-list-item-title> Perfil</v-list-item-title>
         </v-list-item>
 
-        <v-list-item  link>
-          <v-icon class="mr-3">mdi-view-list-outline</v-icon>
-          <v-list-item-title> Detalhes de Conta</v-list-item-title>
+        <v-list-item  to="/detalhes">
+          <v-icon class="mr-3">mdi-cog</v-icon>
+          <v-list-item-title> Definições</v-list-item-title>
         </v-list-item>
 
         <v-list-item @click="logout" text>
@@ -85,7 +85,7 @@ export default {
       logged: false,
       nome: '',
       email: '',
-      user_type: ''
+      type: ''
     };
   },
   created(){
@@ -94,12 +94,11 @@ export default {
         }else{
             this.$router.push('/')
         }
-        console.log('Token: ' + localStorage.getItem('token'))
         axios.get('http://localhost:8001/user', {headers: {token: localStorage.getItem('token')}})
             .then(res => {
                 this.nome = res.data.nome
                 this.email = res.data.email
-                this.user_type = res.data.user_type
+                this.type = res.data.type
         })      
     },
 
