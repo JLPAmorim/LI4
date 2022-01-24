@@ -1,22 +1,31 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
+//All views
 import Authentication from '../views/Authentication.vue'
 import AccountDetails from '../views/AccountDetails.vue'
 import HomePage from '../views/HomePage.vue'
 import ChooseRestaurant from '../views/ChooseRestaurant.vue'
 import CreateAcount from '../views/CreateAcount.vue'
-
-
-
-Vue.use(VueRouter)
+import Team from '../views/Team.vue'
+import AboutUs from '../views/AboutUs.vue'
+import Results from '../views/Results.vue'
+import Perfil from '../views/Perfil.vue'
+import Admin from '../views/Admin.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
+
   {
-    path: '/', //esta dos vai mudar
-    name: 'Authentication',
-    component: Authentication
+    path: '/', 
+    name: 'HomePage',
+    component: HomePage
+  },
+  {
+    path: '/admin', 
+    name: 'Admin',
+    component: Admin
   },
   {
     path: '/autenticar', //site é pt
@@ -24,7 +33,7 @@ const routes = [
     component: Authentication
   },
   {
-    path: '/registar',
+    path: '/criar',
     name: 'CreateAcount',
     component: CreateAcount
   },
@@ -34,14 +43,29 @@ const routes = [
     component: AccountDetails
   },
   {
-    path: '/main', //exta dps vai ser s '/'
-    name: 'HomePage',
-    component: HomePage
-  },
-  {
-    path: '/choices', //exta dps vai ser s '/'
+    path: '/escolha',
     name: 'ChooseRestaurant',
     component: ChooseRestaurant
+  },
+  {
+    path: '/equipa',
+    name: 'Team',
+    component: Team
+  },
+  {
+    path: '/sobrenos',
+    name: 'AboutUs',
+    component: AboutUs
+  },
+  {
+    path: '/resultados',
+    name: 'Results',
+    component: Results
+  },
+  {
+    path: '/perfil',
+    name: 'Perfil',
+    component: Perfil
   },
 
   

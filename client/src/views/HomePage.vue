@@ -7,11 +7,11 @@
           <!--Image-->
           <v-img
             v-if="k == 2"
-            lazy-src="../assets/error.png"
             max-height="350"
             max-width="350"
             class="mx-auto mt-n15"
             src="../assets/foodImageMain.png"
+            
           ></v-img>
 
           <!--Text-->

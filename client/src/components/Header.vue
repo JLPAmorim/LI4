@@ -1,24 +1,15 @@
 <template>
   <v-app-bar color="#00302E" height="90" clipped-left elevate-on-scroll>
-    <a href="/">
+    <a href="/escolha">
       <v-avatar color="#00302E" size="75" class="ml-5">
         <v-img src="../assets/logotipo.png" />
       </v-avatar>
     </a>
-    <v-btn class="btn" color="white" text id="no-background-hover">
+    <v-btn class="btn" color="white" text id="no-background-hover" to="/escolha">
       <h1>RestauraçaUM</h1>
     </v-btn>
 
     <div class="spacer"></div>
-    <!--
-    <v-text-field
-      placeholder="Search"
-      prepend-inner-icon="mdi-magnify"
-      dense
-      solo
-      class="mt-7"
-    ></v-text-field>
-    <div class="spacer"></div>-->
 
     <v-btn v-if="logged" class="mx-4" dark icon>
       <v-icon size="28px"> mdi-bell </v-icon>
@@ -26,7 +17,7 @@
 
     <v-tooltip v-if="!logged" bottom>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn v-bind="attrs" v-on="on" color="white" text rounded>
+        <v-btn v-bind="attrs" v-on="on" color="white" text rounded to="/autenticar">
           Iniciar Sessão
         </v-btn>
       </template>
@@ -35,7 +26,7 @@
 
     <v-tooltip v-if="!logged" bottom>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn v-bind="attrs" v-on="on" color="white" text rounded>
+        <v-btn v-bind="attrs" v-on="on" color="white" text rounded to="/criar">
           Registar
         </v-btn>
       </template>
@@ -60,37 +51,26 @@
           <v-avatar class="mr-3">
             <v-img src="../assets/defaultuser.jpg" />
           </v-avatar>
-          <h4>João Amorim</h4>
+          <h4>{{nome}}</h4>
         </v-list-item>
-        <v-list-item v-if="this.user_type === 'admin'" link :to="admin">
-          <v-icon class="mr-2">mdi-plus</v-icon>
-          <v-list-item-title> Inserir Evento</v-list-item-title>
+        <v-list-item v-if="user_type=='Admin'" link :to="admin">
+          <v-icon class="mr-3">mdi-silverware</v-icon>
+          <v-list-item-title> Inserir Restaurante</v-list-item-title>
         </v-list-item>
-        <v-list-item>
-          <v-icon class="mr-2">mdi-view-list-outline</v-icon>
-          <v-list-item-title @click="historico"
-            >Histórico de Apostas</v-list-item-title
-          >
+
+        <v-list-item  link :to="admin">
+          <v-icon class="mr-3">mdi-food</v-icon>
+          <v-list-item-title> Restaurantes Visitados</v-list-item-title>
         </v-list-item>
-        <v-list-item>
-          <v-icon class="mr-2">mdi-cash-multiple</v-icon>
-          <v-list-item-title @click="movimentos"
-            >Movimentos de Conta</v-list-item-title
-          >
+
+        <v-list-item  link>
+          <v-icon class="mr-3">mdi-view-list-outline</v-icon>
+          <v-list-item-title> Detalhes de Conta</v-list-item-title>
         </v-list-item>
-        <v-list-item>
-          <v-icon class="mr-2">mdi-currency-usd</v-icon>
-          <v-list-item-title @click="saldo">Gerir Saldo</v-list-item-title>
-        </v-list-item>
-        <v-list-item>
-          <v-icon class="mr-2">mdi-cog</v-icon>
-          <v-list-item-title @click="detalhes"
-            >Detalhes de Conta</v-list-item-title
-          >
-        </v-list-item>
+
         <v-list-item @click="logout" text>
-          <v-icon>mdi-logout</v-icon>
-          <v-list-item-title>Logout</v-list-item-title>
+            <v-icon class="mr-3">mdi-logout</v-icon>
+            <v-list-item-title>Logout</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>
@@ -98,62 +78,36 @@
 </template>
 
 <script>
-//import axios from "axios";
+import axios from "axios";
 export default {
   data() {
     return {
-      logged: true,
-      tempos: ["EUR", "USD", "GBP", "ADA"],
-      balance: {
-        EUR: "",
-        USD: "",
-        GBP: "",
-        ADA: "",
-      },
-      coinType: "",
-      finalBalance: "",
-      user_type: "",
+      logged: false,
+      nome: '',
+      email: '',
+      user_type: ''
     };
   },
-  /*created(){
-        if(localStorage.getItem('token') === null){
-            this.$router.push('/authentication')
-        }  
+  created(){
+        if(localStorage.getItem('token') != null){
+            this.logged = true
+        }else{
+            this.$router.push('/')
+        }
+        console.log('Token: ' + localStorage.getItem('token'))
         axios.get('http://localhost:8001/user', {headers: {token: localStorage.getItem('token')}})
             .then(res => {
-                this.coinType = res.data.user.currentCoin
-                if(this.coinType==='EUR'){
-                    this.finalBalance=res.data.user.balance.EUR
-                }
-                if(this.coinType==='USD'){
-                    this.finalBalance=res.data.user.balance.USD
-                }
-                if(this.coinType==='GBP'){
-                    this.finalBalance=res.data.user.balance.GBP
-                }
-                if(this.coinType==='ADA'){
-                    this.finalBalance=res.data.user.balance.ADA
-                }
-                this.user_type= res.data.user.type
+                this.nome = res.data.nome
+                this.email = res.data.email
+                this.user_type = res.data.user_type
         })      
-    },*/
+    },
+
   methods: {
-    historico() {
-      this.$router.push("/historico");
-    },
-    movimentos() {
-      this.$router.push("/movimentos");
-    },
-    saldo() {
-      this.$router.push("/saldo");
-    },
-    detalhes() {
-      this.$router.push("/detalhes");
-    },
-    logout() {
-      localStorage.clear();
-      this.$router.push("/authentication");
-    },
+      logout(){
+          localStorage.clear()
+          this.$router.push('/autenticar')
+      }
   },
 };
 </script>

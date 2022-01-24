@@ -7,10 +7,13 @@ const Restaurante = require('../controllers/restauranteController')
 
 // -------------------------- User ------------------------------
 // GET em user
-router.get("/user", User.findAll)
+router.get("/user", User.findOne)
 
 // POST em user
 router.post("/user", User.create)
+
+// POST em login
+router.post("/login", User.findLogin)
 
 // -------------------------- Restaurante ------------------------------
 // GET em restaurante

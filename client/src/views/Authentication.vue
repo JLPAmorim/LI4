@@ -15,9 +15,9 @@
             >Bem vindo de volta!
           </v-card-text>
           <v-card class="form-prop px-auto" flat>
-            <v-form>
-              <v-text-field v-model="email" label="Email" type="text" color="#00302e" outlined/>
-              <v-text-field v-model="password" label="Palavra-passe" color="#00302e" outlined :append-icon="show ? 'visibility' : 'visibility_off'" @click:append="() => (show = !show)" :type="show ? 'password' : 'text'"/> 
+            <v-form v-model="valid" ref="form">
+              <v-text-field v-model="email" label="Email" type="text" color="#00302e" outlined :rules="[rules.email]"/>
+              <v-text-field v-model="password" label="Palavra-passe" color="#00302e" outlined :append-icon="show ? 'visibility' : 'visibility_off'" @click:append="() => (show = !show)" :type="show ? 'password' : 'text'" :rules="[rules.min]"/> 
             </v-form>
           </v-card>
 
@@ -27,7 +27,7 @@
             Esqueci-me da password
           </v-btn>
 
-          <v-btn class="create-acc-prop text-none" text id="no-background-hover" plain @click="pedido">
+          <v-btn class="create-acc-prop text-none" text id="no-background-hover" plain to="/criar">
             Criar uma conta
           </v-btn>
         </v-card>
@@ -47,57 +47,38 @@ export default {
   },
   data() {
     return {
-      name: "",
       email: "",
       password: "",
       step: 1,
-      show: true
+      show: true,
+      rules: {
+            email: [v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'],
+            min: v => v.length >= 8 || 'Min 8 characters'
+      },
     };
   },
   methods: {
-    register() {
-      let newUser = {
-        username: this.name,
-        email: this.email,
-        password: this.password,
-      };
-      axios.post(`http://localhost:8001/user`, newUser).then(
-        function (response) {
-          console.log(response);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    },
-
     login() {
       let loginUser = {
         email: this.email,
         password: this.password,
       };
 
-      axios.post(`http://localhost:8001/login`, loginUser).then(
-        (response) => {
-          console.log(response);
-          localStorage.setItem("token", response.data.token);
-          this.$router.push("/detalhes");
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    },
-    pedido(){
-      axios.get(`http://localhost:8001/restaurante`)
-          .then((response)=>{
-            console.log(response)
-          },(error) =>{
+      if(this.$refs[`form`][0].validate()){
+        axios.post(`http://localhost:8001/login`, loginUser)
+          .then((response) => {
+              console.log(response);
+              localStorage.setItem("token", response.data.token);
+              this.$router.push("/escolha");
+            },(error) => {
               console.log(error);
-      }); 
+            }
+        );
+      }
     }
-  },
+  }
 };
+
 </script>
 
 <style scoped>
