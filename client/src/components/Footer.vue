@@ -31,9 +31,7 @@ export default {
     icons: ["mdi-facebook", "mdi-twitter", "mdi-instagram"],
     left: [
       {name: "Home", to: '/'},
-      {name: "About Us", to: '/'} ,
       {name: "Team", to: '/equipa'},
-      {name: "Contact Us", to: '/'}
     ],
   }),
 };

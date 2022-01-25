@@ -16,18 +16,15 @@
             v-ripple="false"
             
           >
-            <v-div v-if="!active">
-              <v-img class="mx-auto img-prop" src="../assets/map.png"></v-img>
-              <v-card-text class="text-prop mt-10" style="font-size: 3vh"
-                >Escolher localização no mapa
-              </v-card-text>
-            </v-div>
 
             <v-div v-if="active" fill-height d-flex align-center justify-center>
               <v-img
                 class="mx-auto small-img-prop"
                 src="../assets/map.png"
               ></v-img>
+              <v-card-text class="text-prop mt-10" style="font-size: 3vh"
+                >Escolher localização no mapa
+              </v-card-text>
               <v-form v-model="valid">
                 <v-container>
                   <v-row justify="center" width="50vh">
@@ -50,7 +47,6 @@
                         color="#00302e"
                         type="number"
                         solo
-                        flat
                         class="mt-10"
                         suffix="Km"
                         :rules="rules.required"
@@ -75,7 +71,6 @@
           <v-card
             v-else
             rounded="lg"
-            @click="pesqLocal(local)"
             flat
             color="#e1e1e1"
             class="mt-n15 btn-prop text-center"
@@ -83,8 +78,34 @@
             <v-img class="mx-auto img-prop" src="../assets/map-pin.png"></v-img>
             <v-card-text class="text-prop mt-10" style="font-size: 3vh"
               >Utilizar localização atual
-            </v-card-text></v-card
-          >
+            </v-card-text>
+            <v-form v-model="valid">
+                <v-container>
+                  <v-row justify="center" width="50vh">
+                    <v-col cols="12" md="6">
+                      <v-text-field
+                        v-model="radiusLocal"
+                        label="Raio"
+                        color="#00302e"
+                        type="number"
+                        solo
+                        class="mt-10"
+                        suffix="Km"
+                        :rules="rules.required"
+                      />
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-form>
+            <v-btn
+                color="#00302e"
+                width="46vh"
+                height="7vh"
+                @click="pesqLocal"
+                ><v-card-text class="search-prop"
+                  >Pesquisar
+                </v-card-text></v-btn>
+          </v-card>
         </v-col>
       </v-row>
     </v-container>
@@ -96,8 +117,10 @@
 
 
 <script>
+import axios from "axios";
 import Footer from "../components/Footer.vue";
 import Header from "../components/Header.vue";
+import * as geolib from 'geolib';
 export default {
   components: {
     Footer,
@@ -108,6 +131,7 @@ export default {
       active: true,
       valid: false,
       radius: 0,
+      radiusLocal: 0,
       local: 'local',
       notLocal: 'notLocal',
       concelhos: [{name:'Ajuda', latitude: 38.71039412005384, longitude: -9.200427339321811}, {name:'Alcântara', latitude: 38.70601308630938, longitude: -9.182757243524021}, 
@@ -127,41 +151,81 @@ export default {
       rules: {
             required: [(v) => !!v || "Field is required"],
       },
+      restaurants: []
     };
   },
+  created(){
+    axios.get(`http://localhost:8001/restaurante`)
+      .then((response)=>{
+        this.restaurants=response.data
+      },(error) =>{
+          console.log(error);
+    }); 
+  },
+
   methods: {
     onClickOutside() {
       this.active = false;
     },
     pesquisar(){
-      let data = {
-          latitude: 0,
-          longitude: 0,
-          tipo: '',
-          radius: 0
-      }
 
-      this.concelhos.forEach((obj)=>{
-           if(obj.name === this.location){
-             data.latitude = obj.latitude
-             data.longitude = obj.longitude
-             data.tipo = this.notLocal
-             data.radius = this.radius
-           }
-      })
-      
-      this.$router.push({
-          name: "Results", 
-          params: { data }
-      });
-    },
-    
-    pesqLocal(data){
+        let data = {
+            latitude: 0,
+            longitude: 0
+        }
+        let finalRestaurants = []
+
+        this.concelhos.forEach((obj)=>{
+            if(obj.name === this.location){
+              data.latitude = obj.latitude
+              data.longitude = obj.longitude
+            }
+        })
+
+        this.restaurants.forEach((object)=>{
+            let pertence = false
+            pertence = geolib.isPointWithinRadius(
+                { latitude: object.latitude, longitude:object.longitude },
+                { latitude: data.latitude, longitude: data.longitude },
+                this.radius * 1000
+            );
+            if(pertence){
+              finalRestaurants.push(object)
+            }
+        })
+
+        
         this.$router.push({
           name: "Results", 
-          params: { data }
+          params: { finalRestaurants }
         });
-      },
+
+    },
+    
+    pesqLocal(){
+
+      let data = {
+          lat: 38.71770883641866,
+          lng: -9.151242248243376
+      }
+        let finalRestaurants = []
+
+        this.restaurants.forEach((object)=>{
+            let pertence = false
+            pertence = geolib.isPointWithinRadius(
+                { latitude: object.latitude, longitude:object.longitude },
+                { latitude: data.lat, longitude: data.lng },
+                this.radiusLocal * 1000
+            );
+            if(pertence){
+              finalRestaurants.push(object)
+            }
+        })
+        this.$router.push({
+          name: "Results", 
+          params: { finalRestaurants }
+        });
+    },
   },
 };
 </script>
@@ -173,15 +237,15 @@ export default {
 }
 .img-prop {
   top: 5%;
-  max-height: 50vh !important;
-  max-width: 50vh !important;
+  max-height: 35vh !important;
+  max-width: 35vh !important;
   filter: invert(10%) sepia(75%) saturate(530%) hue-rotate(129deg)
     brightness(98%) contrast(101%) !important;
 }
 .small-img-prop {
   top: 5%;
-  max-height: 40vh !important;
-  max-width: 40vh !important;
+  max-height: 35vh !important;
+  max-width: 35vh !important;
   filter: invert(10%) sepia(75%) saturate(530%) hue-rotate(129deg)
     brightness(98%) contrast(101%) !important;
 }

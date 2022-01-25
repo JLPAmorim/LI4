@@ -7,24 +7,18 @@
           <!--Resultados dos restaurantes-->
           <v-card class="drawer-prop ma-n3" tile>
             <v-list>
-              <v-list-item v-for="rest in restaurants" :key="rest.id" class="mb-5">
+              <v-list-item v-for="rest in restaurants" :key="rest.id" class="mb-5" @click="goToRestaurant(rest)">
                 <v-btn height="15vh" width="25vw" depressed>
                   <!--Photo-->
-                  <v-avatar size="15vh" tile color="#d3d3d3" class="photo-prop">
-                    <v-img
-                      :src="require('../assets/' + photo + '.png')"
-                    />
-                  </v-avatar>
-
                   <!--Informação do restaurante-->
-                  <v-card color="transparent" flat class="ml-4">
+                  <v-card color="transparent" flat width="25vw">
                     <v-card-text class="name-prop text-left">
                       {{rest.name}}
                     </v-card-text>
-                    <v-card-text class="inf-prop mt-n9 text-left">
+                    <v-card-text class="inf-prop mt-n5 text-left">
                       {{rest.address}}
                     </v-card-text>
-                    <v-card-text class="inf-prop mt-n9 text-left">
+                    <v-card-text class="inf-prop mt-n5 text-left">
                       {{rest.time}}
                       </v-card-text>
                     <v-card-text class="inf-prop mt-n9 text-left">
@@ -65,9 +59,10 @@
 
 
 <script>
-import axios from "axios";
+
 import Footer from "../components/Footer.vue";
 import Header from "../components/Header.vue";
+
 
 export default {
   components: {
@@ -96,25 +91,13 @@ export default {
   },
 
   created(){
-    axios.get(`http://localhost:8001/restaurante`)
-          .then((response)=>{
-            this.restaurants=response.data
-          },(error) =>{
-              console.log(error);
-          }); 
+          if(this.$route.params.finalRestaurants!=null){
+            this.restaurants = this.$route.params.finalRestaurants
+          }
 
-      
-      if(this.$route.params.data === 'local'){
-          this.typePesquisa = this.$route.params.data
-          this.radius = 10
-      }
+          console.log(this.restaurants)
+          
 
-      if(this.$route.params.data.tipo === 'notLocal'){
-         this.typePesquisa = this.$route.params.data.tipo
-         this.tempLat = this.$route.params.data.latitude
-         this.tempLng = this.$route.params.data.longitude
-         this.radius = parseFloat(this.$route.params.data.radius)
-      }
   },
 
   methods: {
@@ -131,6 +114,12 @@ export default {
       handleInfoWindowClose(){
         this.activeRestaurant = {}
         this.infoWindowOpened = false
+      },
+      goToRestaurant(rest){
+        this.$router.push({
+          name: "Restaurante", 
+          params: { rest }
+        });
       }
   },
   computed: {
@@ -197,6 +186,7 @@ export default {
 .name-prop {
   font-size: 2.3vh;
   font-weight: 500;
+  text-align: left;
   color: #002423 !important;
 }
 .inf-prop {

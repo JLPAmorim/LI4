@@ -9,26 +9,34 @@
       <h1>RestauraçaUM</h1>
     </v-btn>
 
-    <div class="spacer"></div>
+    <div class="spacer"></div>  
 
-    <v-btn v-if="logged" class="mx-4" dark icon>
-      <v-icon size="28px"> mdi-bell </v-icon>
-    </v-btn>
+    
 
+    
+    
     <v-tooltip v-if="!logged" bottom>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn v-bind="attrs" v-on="on" color="white" text rounded to="/autenticar">
-          Iniciar Sessão
-        </v-btn>
+        <v-btn v-if="!logged" v-bind="attrs" v-on="on" color="#ebd9c6" text to="/autenticar" class="mr-6">
+      Iniciar Sessão
+    </v-btn>
       </template>
       <span>Iniciar Sessão</span>
     </v-tooltip>
 
     <v-tooltip v-if="!logged" bottom>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn v-bind="attrs" v-on="on" color="white" text rounded to="/criar">
-          Registar
-        </v-btn>
+        <v-btn
+      v-if="!logged"
+      v-bind="attrs"
+      color="#e9cfb4"
+      style="color: #00302e"
+      class="mr-16"
+      to="/criar"
+      v-on="on"
+    >
+      Registar
+    </v-btn>
       </template>
       <span>Registar Utilizador</span>
     </v-tooltip>
@@ -85,21 +93,29 @@ export default {
       logged: false,
       nome: '',
       email: '',
-      type: ''
+      type: '',
     };
   },
   created(){
-        if(localStorage.getItem('token') != null){
-            this.logged = true
-        }else{
-            this.$router.push('/')
+        if (localStorage.getItem("token") != null) {
+          this.logged = true;
+        } else if (
+          this.$router.history.current.path != "/equipa" &&
+          this.$router.history.current.path != "/" &&
+          this.logged == false
+        ) {
+          this.$router.push("/autenticar");
         }
         axios.get('http://localhost:8001/user', {headers: {token: localStorage.getItem('token')}})
             .then(res => {
+                console.log(res)
+                this.id_user = res.data.id_user
                 this.nome = res.data.nome
                 this.email = res.data.email
                 this.type = res.data.type
-        })      
+        },(error) =>{
+              console.log(error);
+        });  
     },
 
   methods: {

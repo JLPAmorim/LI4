@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Header />
+    <Header/>
     <v-container fill-height fluid>
       <v-row no-gutters>
         <!--esquerda-->
@@ -71,6 +71,7 @@
 
 
 <script>
+//import axios from "axios";
 import Footer from "../components/Footer.vue";
 import Header from "../components/Header.vue";
 export default {
@@ -78,9 +79,8 @@ export default {
     Footer,
     Header,
   },
-  data: function () {
+  data() {
     return {
-      /*Teste*/
       restaurante: {
         photo: "signIn",
         name: "restaurante",
@@ -89,8 +89,24 @@ export default {
         cost: "€€",
       },
       name: "",
+      id_user: 0
     };
   },
+
+  created(){
+        /*if(this.$route.params.id!=null){
+          this.id_user = this.$route.params.id
+        }
+        console.log(this.id_user)
+        axios.get('http://localhost:8001/visited', this.id_user)
+              .then(res => {
+                  console.log(res)
+        })    */ 
+        
+    },
+  mounted(){
+
+  }
 };
 </script>
 

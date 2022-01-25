@@ -28,10 +28,16 @@
             <v-card-text class="text-prop" style="font-size: 64px"
               >espera por ti!
             </v-card-text>
-            <v-card-text class="text-prop text-op" style="font-size: 18px"
-              >Pesquisa restaurantes perto de ti ou numa localização
-              <div>à tua escolha!</div>
-            </v-card-text>
+            <v-btn
+                to="/escolha"
+                color="#e4c5a3"
+                class="text-none mt-7 ml-4"
+                outlined
+              >
+                <v-card-text class="text-prop text-op" style="font-size: 18px"
+                  >Clica aqui para começar a pesquisar!
+                </v-card-text></v-btn
+              >
           </v-card>
         </v-col>
       </v-row>

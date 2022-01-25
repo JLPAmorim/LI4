@@ -4,19 +4,7 @@
     <v-container>
       <v-layout justify-center row wrap>
         <v-flex xs12 sm12 md12 lg6>
-          <v-card class="mt-4" color="#00302E" elevation="10"  width="80vw">
-            <v-row>
-              <v-col>
-                <v-card-title class="white--text text-h4 mr-5">
-                  <v-icon class="mr-2" size="40px" color="white">
-                    mdi-cog
-                  </v-icon>
-                  Detalhes de Conta
-                </v-card-title>
-              </v-col>
-            </v-row>
-          </v-card>
-          <v-card class="mt-2" elevation="10" width="100vw" height="90vh">
+          <v-card style="top: 1vh" flat width="100vw" height="100vh">
             <v-form v-model="valid" ref="form">
               <v-row class="pb-15">
                 <v-col cols="11" class="mr-2">
@@ -26,46 +14,59 @@
                     </v-avatar>
                   </v-row>
                   <v-row justify="center">
-                    <v-btn class="mt-7 ml-16" rounded>
+                    <v-btn
+                      class="mt-7 ml-16"
+                      depressed
+                      outlined
+                      color="#0d5a55"
+                    >
                       <h4>Alterar Imagem</h4>
                     </v-btn>
                   </v-row>
                 </v-col>
                 <v-col cols="12" class="mt-8">
-                  <v-row>
-                    <v-col cols="15" centered>
-                      <v-text-field
-                        v-model="formData.name"
-                        filled
-                        color="#00302E"
-                        placeholder="Nome"
-                        :readonly="notEditing"
-                        :rules="rules.required"
-                      />
-                    </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-col cols="15" centered>
-                      <v-text-field
-                        v-model="formData.email"
-                        filled
-                        color="#00302E"
-                        placeholder="Email"
-                        :readonly="notEditing"
-                        :rules="rules.email"
-                      />
-                    </v-col>
-                  </v-row>
-                  <v-row justify="end">
-                    <v-col cols="5">
-                      <v-btn class="" rounded @click="passwordBtn">
+                  <v-card class="text-center mx-auto" flat width="30vw ">
+                    <v-text-field
+                      v-model="formData.name"
+                      filled
+                      color="#00302E"
+                      placeholder="Nome"
+                      :readonly="notEditing"
+                      :rules="rules.required"
+                    />
+
+                    <v-text-field
+                      v-model="formData.email"
+                      filled
+                      color="#00302E"
+                      placeholder="Email"
+                      :readonly="notEditing"
+                      :rules="rules.email"
+                    />
+                  </v-card>
+                  <v-row justify="center" align="center">
+                    <v-col cols="12" md="6">
+                      <v-btn
+                        class="ml-n3"
+                        depressed
+                        outlined
+                        @click="passwordBtn"
+                        color="#0d5a55"
+                      >
                         <h4>Alterar Password</h4>
                       </v-btn>
                     </v-col>
-                    <v-col cols="6">
-                      <v-btn class="ml-5 pr-10 pl-10" rounded @click="editBtn">
+                    <v-col cols="12" md="3">
+                      <v-btn
+                        depressed
+                        @click="editBtn"
+                        :outlined="notEditing"
+                        color="#0d5a55"
+                        :style="notEditing ? undifined : 'color:white'"
+                        width="9vw"
+                      >
                         <h4 v-if="notEditing">Editar Perfil</h4>
-                        <h4 v-else>Confirmar Edição</h4>
+                        <h4 v-else>Confirmar</h4>
                       </v-btn>
                     </v-col>
                   </v-row>
@@ -88,7 +89,9 @@
                   </h4>
                   <v-row>
                     <v-col cols="9" color="#00302E">
-                      <h4 class="ml-10 mt-7" color="#00302E">Password Actual:</h4>
+                      <h4 class="ml-10 mt-7" color="#00302E">
+                        Password Actual:
+                      </h4>
                       <v-text-field
                         v-model="passwordData.oldPassword"
                         class="ml-10 mt-3"
@@ -305,3 +308,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+#app {
+  background-color: white;
+  background-image: url("../assets/signIn.png");
+  background-size: cover;
+  height: "50vh";
+}
+</style>

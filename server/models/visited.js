@@ -20,8 +20,9 @@ Visited.create = (newVisited, result) => {
   });
 };
 
-Visited.getByUser = (result) => {
-  let query = "SELECT id_restaurant FROM user_visited_restaurant WHERE id_user=?";
+Visited.findByID = (id_user, result) => {
+  let query = `SELECT \`restaurant\`.* FROM \`restaurant\` JOIN \`user_visited_restaurant\` ON \`restaurant\`.\`id_restaurant\` = \`user_visited_restaurant\`.\`id_restaurant\` WHERE \`user_visited_restaurant\`.\`id_user\` = '${id_user}';`
+  console.log(query)
 
   sql.query(query, (err, res) => {
     if (err) {

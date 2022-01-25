@@ -12,6 +12,7 @@ import AboutUs from '../views/AboutUs.vue'
 import Results from '../views/Results.vue'
 import Perfil from '../views/Perfil.vue'
 import Admin from '../views/Admin.vue'
+import Restaurante from '../views/RestaurantCard.vue'
 
 Vue.use(VueRouter)
 
@@ -66,6 +67,11 @@ const routes = [
     path: '/perfil',
     name: 'Perfil',
     component: Perfil
+  },
+  {
+    path: '/restaurante',
+    name: 'Restaurante',
+    component: Restaurante
   },
 
   

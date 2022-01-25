@@ -23,10 +23,6 @@
 
           <v-btn class="aut-btn text-none" @click="login" depressed>Autenticar</v-btn>
 
-          <v-btn class="pass-prop text-none" text plain>
-            Esqueci-me da password
-          </v-btn>
-
           <v-btn class="create-acc-prop text-none" text id="no-background-hover" plain to="/criar">
             Criar uma conta
           </v-btn>
@@ -130,7 +126,7 @@ export default {
 .create-acc-prop {
   color: #00302e !important;
   position: absolute;
-  top: 70%;
+  top: 67%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 1.5vh;

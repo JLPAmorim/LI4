@@ -13,6 +13,7 @@ Vue.use(VueGoogleMaps,{
   }
 });
 
+
 new Vue({
   router,
   store,

@@ -123,7 +123,21 @@ export default {
       price_level: "",
       delivery: "",
       dine_in: "",
+      type: ''
     };
+  },
+  created(){
+        (async () => {
+          try {
+            const response = await axios.get('http://localhost:8001/user', {headers: {token: localStorage.getItem('token')}})
+            console.log(response);
+            this.type = response.data.type
+          } catch (error) {
+            console.log(error.response.body);
+          }
+        })();
+
+        console.log(this.type) 
   },
    methods: {
     inserir() {

@@ -1,7 +1,9 @@
 const Visited = require("../models/visited.js");
+const User = require("../models/user.js")
 
 exports.create = (req, res) => {
   // Validate request
+  console.log(req.body)
   if (!req.body) {
     res.status(400).send({
       message: "Content can not be empty!"
@@ -9,14 +11,10 @@ exports.create = (req, res) => {
   }
 
   // Create a User
-  const visited = new Visited({
-    id_user: visited.id_user,
-    id_restaurant: visited.id_restaurant,
-    date: visited.date
-  });
+
 
   // Save User in the database
-  Visited.create(visited, (err, data) => {
+  Visited.create(req.body, (err, data) => {
     if (err)
       res.status(500).send({
         message:
@@ -28,12 +26,12 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
   
-    Visited.getByUser((err, data) => {
-      if (err)
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving users."
-        });
-      else res.send(data);
-    });
+  Visited.getByUser((err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving users."
+      });
+    else res.send(data);
+  });
 };
