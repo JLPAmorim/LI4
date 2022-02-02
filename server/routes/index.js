@@ -16,6 +16,12 @@ router.post("/user", User.create)
 // POST em login
 router.post("/login", User.findLogin)
 
+// POST em user
+router.put("/user", User.updateUser)
+
+// POST em user
+router.put("/userPassword", User.updatePassword)
+
 // -------------------------- Restaurante ------------------------------
 // GET em restaurante
 router.get("/restaurante", Restaurante.findAll)

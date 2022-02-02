@@ -10,10 +10,6 @@
     </v-btn>
 
     <div class="spacer"></div>  
-
-    
-
-    
     
     <v-tooltip v-if="!logged" bottom>
       <template v-slot:activator="{ on, attrs }">
@@ -66,7 +62,7 @@
           <v-list-item-title> Inserir Restaurante</v-list-item-title>
         </v-list-item>
 
-        <v-list-item to="/perfil">
+        <v-list-item @click="goPerfil">
           <v-icon class="mr-3">mdi-account</v-icon>
           <v-list-item-title> Perfil</v-list-item-title>
         </v-list-item>
@@ -91,6 +87,7 @@ export default {
   data() {
     return {
       logged: false,
+      id_user: 0,
       nome: '',
       email: '',
       type: '',
@@ -108,7 +105,6 @@ export default {
         }
         axios.get('http://localhost:8001/user', {headers: {token: localStorage.getItem('token')}})
             .then(res => {
-                console.log(res)
                 this.id_user = res.data.id_user
                 this.nome = res.data.nome
                 this.email = res.data.email
@@ -119,6 +115,14 @@ export default {
     },
 
   methods: {
+      goPerfil(){
+        let id_user = this.id_user
+      
+        this.$router.push({
+          name: "Perfil", 
+          params: { id_user }
+        });
+      },
       logout(){
           localStorage.clear()
           this.$router.push('/autenticar')

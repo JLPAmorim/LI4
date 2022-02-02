@@ -33,7 +33,7 @@
           <v-divider class="mr-7" />
           <v-card class="drawer-prop ma-3" tile flat>
             <v-list>
-              <v-list-item v-for="k in 10" :key="k" class="mb-5">
+              <v-list-item v-for="rest in restaurants" :key="rest.id_user" class="mb-5" @click="goToRestaurant(rest)">
                 <v-btn height="15vh" width="45vw" depressed>
                   <!--Photo-->
                   <v-avatar size="15vh" tile color="#d3d3d3" class="photo-prop">
@@ -41,21 +41,21 @@
                       :src="require('../assets/' + restaurante.photo + '.png')"
                     />
                   </v-avatar>
+                  
 
                   <!--Informação do restaurante-->
                   <v-card color="transparent" flat class="ml-4">
-                    <v-card-text class="name-prop text-left">{{
-                      restaurante.name
-                    }}</v-card-text>
-                    <v-card-text class="inf-prop mt-n9 text-left">{{
-                      restaurante.adress
-                    }}</v-card-text>
-                    <v-card-text class="inf-prop mt-n9 text-left">{{
-                      restaurante.time
-                    }}</v-card-text>
-                    <v-card-text class="inf-prop mt-n9 text-left">{{
-                      restaurante.cost
-                    }}</v-card-text>
+                    <v-card-text class="name-prop text-left">
+                      {{rest.name}}
+                    </v-card-text>
+                    <v-card-text class="inf-prop mt-n9 text-left">
+                      {{rest.address}}
+                      </v-card-text>
+                    <v-card-text class="inf-prop mt-n9 text-left">
+                      {{rest.mobile}}</v-card-text>
+                    <v-card-text class="inf-prop mt-n9 text-left">
+                      {{rest.price_level}}
+                      </v-card-text>
                   </v-card>
                 </v-btn>
               </v-list-item>
@@ -71,7 +71,7 @@
 
 
 <script>
-//import axios from "axios";
+import axios from "axios";
 import Footer from "../components/Footer.vue";
 import Header from "../components/Header.vue";
 export default {
@@ -88,26 +88,35 @@ export default {
         time: "Aberto ate 00:00",
         cost: "€€",
       },
-      name: "",
-      id_user: 0
+      restaurants: [],
+      name: "João Amorim",
+      id_user: ''
     };
   },
 
   created(){
-        /*if(this.$route.params.id!=null){
-          this.id_user = this.$route.params.id
+        if(this.$route.params.id_user!=null){
+          this.id_user = this.$route.params.id_user.toString()
         }
         console.log(this.id_user)
-        axios.get('http://localhost:8001/visited', this.id_user)
+        axios.get('http://localhost:8001/visited', {headers: {id_user: this.id_user}})
               .then(res => {
-                  console.log(res)
-        })    */ 
+                console.log(res)
+                this.restaurants = res.data
+                
+        })
         
     },
-  mounted(){
-
-  }
+    methods: {
+      goToRestaurant(rest){
+        this.$router.push({
+          name: "Restaurante", 
+          params: { rest }
+        });
+      }
+    }
 };
+
 </script>
 
 <style scoped>

@@ -25,9 +25,9 @@
                   </v-row>
                 </v-col>
                 <v-col cols="12" class="mt-8">
-                  <v-card class="text-center mx-auto" flat width="30vw ">
+                  <v-card class="text-center mx-auto" flat width="31vw ">
                     <v-text-field
-                      v-model="formData.name"
+                      v-model="formData.nome"
                       filled
                       color="#00302E"
                       placeholder="Nome"
@@ -47,7 +47,7 @@
                   <v-row justify="center" align="center">
                     <v-col cols="12" md="6">
                       <v-btn
-                        class="ml-n3"
+                        class="ml-8"
                         depressed
                         outlined
                         @click="passwordBtn"
@@ -58,6 +58,7 @@
                     </v-col>
                     <v-col cols="12" md="3">
                       <v-btn
+                        class="pr-4"
                         depressed
                         @click="editBtn"
                         :outlined="notEditing"
@@ -149,15 +150,17 @@
                         <v-btn
                           v-bind="attrs"
                           v-on="on"
-                          color="#F0B62B"
+                          color="#0d5a55"
                           elevation="5"
                           class="mb-3 mr-3"
+                          depressed
+                          outlined
                           @click="cancelBtn"
                         >
-                          <v-icon class="mr-2" color="white"
+                          <v-icon class="mr-2" 
                             >mdi-checkbox-marked-outline</v-icon
                           >
-                          <h4 class="white--text mt-1">Cancelar</h4>
+                          <h4 class="mt-1">Cancelar</h4>
                         </v-btn>
                       </template>
                       <span>Cancelar</span>
@@ -168,7 +171,7 @@
                         <v-btn
                           v-bind="attrs"
                           v-on="on"
-                          color="#29E898"
+                          color="#0d5a55"
                           elevation="5"
                           class="mb-3 mr-3"
                           @click="changePassword"
@@ -186,6 +189,44 @@
               </v-container>
             </v-card>
           </v-dialog>
+          <!-- Janela de Mudança Bem-Sucedida -->
+        <v-dialog v-model="showConfirm" max-width="500px">
+                <v-card>
+                <v-app-bar color="#00302e" >
+                <div class="d-flex align-center">
+                        <h3 width="40" class="white--text"> Alteração de Detalhes</h3>
+                </div>
+                </v-app-bar>
+                <v-container>
+                <v-row>
+                        <v-col cols="3">
+                        <v-card class="ml-4 mt-1" color="white" flat height="100px" width="110px" >
+                        <v-img src="@/assets/check.png"/>
+                        </v-card>
+                        </v-col>
+                        <v-col cols="9">
+                        <h3 class="ml-5 mt-5">Detalhes de Utilizador alterados com sucesso!</h3>
+                        </v-col>
+                </v-row>
+                </v-container>
+                <v-card-actions>
+                <v-container>
+                        <v-row >
+                        <v-col class="text-right">
+                        <v-tooltip bottom>
+                                <template v-slot:activator="{ on, attrs }">   
+                                <v-btn v-bind="attrs" v-on="on" color="#ebd9c6" @click="closeConfirm" elevation="5" class="mt-5">
+                                        <v-icon>mdi-door-open</v-icon>
+                                </v-btn>                     
+                                </template>
+                                <span>Ok</span>
+                        </v-tooltip>
+                        </v-col>
+                        </v-row>
+                </v-container>
+                </v-card-actions>
+                </v-card>
+        </v-dialog>
         </v-flex>
       </v-layout>
     </v-container>
@@ -214,63 +255,57 @@ export default {
       show4: true,
       show5: false,
       show6: true,
+      showConfirm: false,
       id: "",
       password: "",
       newPassword: "",
       repeatPassword: "",
       formData: {
-        _id: "",
-        name: "",
+        id_user: "",
         email: "",
+        nome: "",
       },
       passwordData: {
-        _id: "",
+        id_user: "",
         oldPassword: "",
         password: "",
       },
       rules: {
         required: [(v) => !!v || "Field is required"],
-        email: [
-          (v) =>
-            !v ||
-            /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-            "E-mail must be valid",
-        ],
-        min: (v) => v.length >= 4 || "Min 8 characters",
+        email: [(v) => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || "E-mail must be valid",],
+        min: (v) => v.length >= 8 || "Min 8 characters",
       },
     };
   },
-  /*
   created() {
     if (localStorage.getItem("token") === null) {
       this.$router.push("/autenticar");
     }
-    axios
-      .get("http://localhost:8001/user", {
-        headers: { token: localStorage.getItem("token") },
-      })
+    axios.get("http://localhost:8001/user", {headers: { token: localStorage.getItem("token")}})
       .then((res) => {
-        (this.formData._id = res.data.user._id),
-          (this.passwordData._id = res.data.user._id),
-          (this.formData.name = res.data.user.name),
-          (this.formData.email = res.data.user.email);
+          this.formData.id_user = res.data.id_user
+          this.formData.email = res.data.email
+          this.formData.nome = res.data.nome
       });
-  },*/
-  mounted() {},
+  },
+
   methods: {
     editBtn() {
       if (this.notEditing) {
         this.notEditing = false;
       } else {
         this.notEditing = true;
-        axios.put(`http://localhost:8001/user`, this.formData).then(
-          function (response) {
-            console.log(response);
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
+        console.log(this.formData)
+        axios.put(`http://localhost:8001/user`, this.formData)
+          .then(function (response) {
+              console.log(response);
+              
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        this.showConfirm = true
       }
     },
     passwordBtn() {
@@ -278,6 +313,9 @@ export default {
     },
     cancelBtn() {
       this.openPassword = false;
+    },
+    closeConfirm() {
+      this.showConfirm = false;
     },
     matchingPasswords() {
       if (this.passwordData.password === this.repeatPassword) {
@@ -287,19 +325,21 @@ export default {
       }
     },
     changePassword() {
+      let user = {
+        id_user: this.formData.id_user,
+        password: this.passwordData.password
+      }
       if (this.$refs.form2.validate()) {
-        console.log("Campos Válidos");
-        console.log(this.passwordData._id);
-        console.log(this.passwordData.password);
-        console.log(this.passwordData.oldPassword);
-        axios.put(`http://localhost:8001/user`, this.passwordData).then(
-          function (response) {
+        console.log(this.passwordData)
+        axios.put(`http://localhost:8001/userPassword`, user)
+        .then(function (response) {
             console.log(response);
           },
           (error) => {
             console.log(error);
           }
         );
+        console.log('valido')
       } else {
         this.showError = true;
         console.log("Campos Inválidos!");

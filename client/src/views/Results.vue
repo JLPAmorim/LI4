@@ -19,9 +19,9 @@
                       {{rest.address}}
                     </v-card-text>
                     <v-card-text class="inf-prop mt-n5 text-left">
-                      {{rest.time}}
+                      {{rest.mobile}}
                       </v-card-text>
-                    <v-card-text class="inf-prop mt-n9 text-left">
+                    <v-card-text class="inf-prop mt-n5 text-left">
                       {{rest.price_level}}
                     </v-card-text>
                   </v-card>

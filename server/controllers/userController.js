@@ -67,3 +67,58 @@ exports.findLogin = (req, res) => {
 };
 
 
+exports.updateUser = (req, res) => {
+  console.log(req.body)
+  // Validate Request
+  if (!req.body) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+  }
+
+  User.updateByIdUser(req.body.id_user, new User(req.body), (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found User with id ${req.body.id_user}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Error updating User with id " + req.body.id_user
+        });
+      }
+    } else res.send(data);
+  });
+  
+};
+
+// Update an User identified by the id in the request
+exports.updatePassword = (req, res) => {
+  console.log(req.body)
+  req.body.password = bcrypt.hashSync(req.body.password, 10)
+  // Validate Request
+  if (!req.body) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+  }
+
+  User.updateByIdPassword(req.body.id_user, new User(req.body), (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found User with id ${req.body.id_user}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Error updating User with id " + req.body.id_user
+        });
+      }
+    } else res.send(data);
+  });
+  
+};
+
+
+
+

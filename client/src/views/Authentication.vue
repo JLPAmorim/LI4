@@ -15,6 +15,10 @@
             >Bem vindo de volta!
           </v-card-text>
           <v-card class="form-prop px-auto" flat>
+            <h4 class="red--text mb-5" v-if="showError">
+                    Erro na submissão. Por favor corrija os erros e tente
+                    novamente!
+                  </h4>
             <v-form v-model="valid" ref="form">
               <v-text-field v-model="email" label="Email" type="text" color="#00302e" outlined :rules="[rules.email]"/>
               <v-text-field v-model="password" label="Palavra-passe" color="#00302e" outlined :append-icon="show ? 'visibility' : 'visibility_off'" @click:append="() => (show = !show)" :type="show ? 'password' : 'text'" :rules="[rules.min]"/> 
@@ -51,6 +55,7 @@ export default {
             email: [v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'],
             min: v => v.length >= 8 || 'Min 8 characters'
       },
+      showError: false
     };
   },
   methods: {
@@ -68,6 +73,7 @@ export default {
               this.$router.push("/escolha");
             },(error) => {
               console.log(error);
+              this.showError = true
             }
         );
       }

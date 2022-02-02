@@ -58,4 +58,53 @@ User.findByEmail = (email, result) => {
   });
 };
 
+
+User.updateByIdUser = (id_user, user, result) => {
+  sql.query(
+    "UPDATE user SET nome = ?, email = ? WHERE id_user = ?",
+    [user.nome, user.email, id_user],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+
+      if (res.affectedRows == 0) {
+        // not found User with the id
+        result({ kind: "not_found" }, null);
+        return;
+      }
+
+      console.log("updated user: ", { id_user: id_user, ...user });
+      result(null, { id_user: id_user, ...user });
+    }
+  );
+};
+
+User.updateByIdPassword = (id_user, user, result) => {
+  sql.query(
+    "UPDATE user SET password = ? WHERE id_user = ?",
+    [user.password, id_user],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+
+      if (res.affectedRows == 0) {
+        // not found User with the id
+        result({ kind: "not_found" }, null);
+        return;
+      }
+
+      console.log("updated user: ", { id_user: id_user, ...user });
+      result(null, { id_user: id_user, ...user });
+    }
+  );
+};
+
+
+
 module.exports = User;

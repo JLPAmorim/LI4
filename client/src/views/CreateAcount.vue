@@ -16,7 +16,7 @@
         <!--Actual sign in part-->
         <v-card v-if="k == 2" color="white" height="100vh" tile>
           <v-card-text class="text-center my-auto title-prop"
-            >Bem vindo de volta!
+            >Registar Conta!
           </v-card-text>
           <v-card class="form-prop px-auto" flat>
             <v-form v-model="valid" ref="form">

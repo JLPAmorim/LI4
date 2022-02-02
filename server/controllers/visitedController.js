@@ -25,8 +25,10 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-  
-  Visited.getByUser((err, data) => {
+  console.log(req.headers)
+  let id_user = parseInt(req.headers.id_user)
+  console.log(id_user)
+  Visited.getByID(id_user,(err, data) => {
     if (err)
       res.status(500).send({
         message:
