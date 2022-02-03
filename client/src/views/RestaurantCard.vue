@@ -135,20 +135,14 @@ export default {
   },
   created(){
         if(this.$route.params.rest!=null){
-                this.res = this.$route.params.rest
+                this.res = this.$route.params.rest.rest
+                this.id_user = this.$route.params.rest.id_user
         }
-        if(this.$route.params.user!=null){
-          this.id = this.$route.params.user.id_user
-        }
-        console.log(this.res)
-        console.log(this.id)
-
-
   },
   methods: {
         submit(){
                 let visited = {
-                        id_user: this.id,
+                        id_user: this.id_user,
                         id_restaurant: this.res.id_restaurant,
                         date: new Date().toLocaleString(),
                 }

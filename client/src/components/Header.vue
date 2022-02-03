@@ -10,6 +10,7 @@
     </v-btn>
 
     <div class="spacer"></div>  
+
     
     <v-tooltip v-if="!logged" bottom>
       <template v-slot:activator="{ on, attrs }">
@@ -32,6 +33,23 @@
       v-on="on"
     >
       Registar
+    </v-btn>
+      </template>
+      <span>Registar Utilizador</span>
+    </v-tooltip>
+
+    <v-tooltip v-if="logged" bottom>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+      v-if="logged"
+      v-bind="attrs"
+      color="#e9cfb4"
+      style="color: #00302e"
+      class="mr-16"
+      to="/escolha"
+      v-on="on"
+    >
+      Restaurantes
     </v-btn>
       </template>
       <span>Registar Utilizador</span>
@@ -78,6 +96,8 @@
         </v-list-item>
       </v-list>
     </v-menu>
+
+    
   </v-app-bar>
 </template>
 
@@ -109,18 +129,20 @@ export default {
                 this.nome = res.data.nome
                 this.email = res.data.email
                 this.type = res.data.type
+
         },(error) =>{
               console.log(error);
         });  
+
+        
     },
 
   methods: {
       goPerfil(){
-        
         let user = {
           id_user: this.id_user,
           name: this.nome
-        };
+        }
       
         this.$router.push({
           name: "Perfil", 
