@@ -116,11 +116,15 @@ export default {
 
   methods: {
       goPerfil(){
-        let id_user = this.id_user
+        
+        let user = {
+          id_user: this.id_user,
+          name: this.nome
+        };
       
         this.$router.push({
           name: "Perfil", 
-          params: { id_user }
+          params: { user }
         });
       },
       logout(){

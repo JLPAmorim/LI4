@@ -89,14 +89,15 @@ export default {
         cost: "€€",
       },
       restaurants: [],
-      name: "João Amorim",
+      name: "",
       id_user: ''
     };
   },
 
   created(){
-        if(this.$route.params.id_user!=null){
-          this.id_user = this.$route.params.id_user.toString()
+        if(this.$route.params.user.id_user!=null){
+          this.id_user = this.$route.params.user.id_user.toString()
+          this.name = this.$route.params.user.name
         }
         console.log(this.id_user)
         axios.get('http://localhost:8001/visited', {headers: {id_user: this.id_user}})

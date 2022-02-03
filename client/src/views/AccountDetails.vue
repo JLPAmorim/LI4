@@ -339,6 +339,8 @@ export default {
             console.log(error);
           }
         );
+        this.openPassword = false;
+        this.showConfirm = true;
         console.log('valido')
       } else {
         this.showError = true;
