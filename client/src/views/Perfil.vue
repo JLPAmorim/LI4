@@ -90,7 +90,7 @@ export default {
       },
       restaurants: [],
       name: "",
-      id_user: ''
+      id_user: 0
     };
   },
 
@@ -109,7 +109,13 @@ export default {
         
     },
     methods: {
-      goToRestaurant(rest){
+      goToRestaurant(resti){
+
+      let rest = {
+        rest: resti,
+        id_user: this.id_user
+      }
+
         this.$router.push({
           name: "Restaurante", 
           params: { rest }
