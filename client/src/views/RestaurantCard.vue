@@ -129,21 +129,20 @@ export default {
       cost: ["€", "€€", "€€€"],
       res: {},
       showConfirm: false,
-      showError: ''
+      showError: '',
+      id: 0
     };
   },
   created(){
         if(this.$route.params.rest!=null){
-                this.res = this.$route.params.rest
+                this.res = this.$route.params.rest.rest
+                this.id_user = this.$route.params.rest.id_user
         }
-        console.log(this.res)
-
-
   },
   methods: {
         submit(){
                 let visited = {
-                        id_user: 2,
+                        id_user: this.id_user,
                         id_restaurant: this.res.id_restaurant,
                         date: new Date().toLocaleString(),
                 }

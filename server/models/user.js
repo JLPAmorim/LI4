@@ -83,10 +83,7 @@ User.updateByIdUser = (id_user, user, result) => {
 };
 
 User.updateByIdPassword = (id_user, user, result) => {
-  sql.query(
-    "UPDATE user SET password = ? WHERE id_user = ?",
-    [user.password, id_user],
-    (err, res) => {
+  sql.query("UPDATE user SET password = ? WHERE id_user = ?", [user.password, id_user], (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(null, err);

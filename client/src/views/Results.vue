@@ -59,7 +59,7 @@
 
 
 <script>
-
+import axios from "axios";
 import Footer from "../components/Footer.vue";
 import Header from "../components/Header.vue";
 
@@ -86,7 +86,8 @@ export default {
       typePesquisa: '',
       radius: 0,
       tempLat: 0,
-      tempLng: 0
+      tempLng: 0,
+      id_user: 0
     };
   },
 
@@ -95,7 +96,14 @@ export default {
             this.restaurants = this.$route.params.finalRestaurants
           }
 
-          console.log(this.restaurants)
+          axios.get('http://localhost:8001/user', {headers: {token: localStorage.getItem('token')}})
+            .then(res => {
+                this.id_user = res.data.id_user
+          },(error) =>{
+                console.log(error);
+          }); 
+
+          console.log(this.id_user)
           
 
   },
@@ -115,7 +123,12 @@ export default {
         this.activeRestaurant = {}
         this.infoWindowOpened = false
       },
-      goToRestaurant(rest){
+      goToRestaurant(resti){
+        console.log(this.id_user)
+        let rest = {
+          rest: resti,
+          id_user: this.id_user
+        }
         this.$router.push({
           name: "Restaurante", 
           params: { rest }
